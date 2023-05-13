@@ -1,0 +1,48 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: aqua;
+}
+
+.container {
+    display: flex; 
+    flex-direction: column;
+    padding-top: 20vh;
+}
+.container2 {
+    display: flex;
+    padding:30vh;
+    align-items: center;
+
+}
+.char2
+{
+    display: flex;
+    padding-left: 15vh;
+}
+
+.play {
+    padding: 50%;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border: 1px solid black;
+}
+.control {
+    padding: 50%;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border: 1px solid black;
+}

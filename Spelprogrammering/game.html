@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pewpew</title>
+</head>
+
+<body>
+<audio autoplay loop>
+    <!--<source src="audio/Terraria Music - Night.mp3" type="audio/mp3"> orkar inte med ljudet-->
+</audio>
+    <script src="simple.js">
+
+       
+
+    var character1 = {x: random(totalWidth),
+                      y: random(totalHeight),
+                      speed: 1,
+                      health: 100};
+    var character2 = {x: random(totalWidth),
+                      y: random(totalHeight),
+                      health: 100};   
+
+    var leftdirection1 ="false";
+    var rightdirection1 ="false";
+    var updirection1 ="false";
+    var downdirection1 ="false";
+
+    var leftdirection2 ="false";
+    var rightdirection2 ="false";
+    var updirection2 ="false";
+    var downdirection2 ="false";
+
+        var zombies = [];
+        for (let i = 0; i < 5; i++) {
+            spawnZombie();
+        }
+
+        var characters = [character1, character2];
+
+        
+         function update() 
+        {
+            clearScreen();
+            
+            
+            for (var zombie of zombies){
+
+            //zombie bild
+            picture(zombie.x, zombie.y, "image/zombie.png");
+
+            //Zombie jagar den närmsta karaktär
+            var d1 = Math.sqrt(Math.pow(zombie.x - character1.x,2) + Math.pow(zombie.y - character1.y,2))
+            var d2 = Math.sqrt(Math.pow(zombie.x - character2.x,2) + Math.pow(zombie.y - character2.y,2))
+
+            if (d1 < d2)
+            {
+                if (zombie.x < character1.x) 
+                {
+                    zombie.x += zombie.speed;
+                } 
+                else 
+                {
+                    zombie.x-= zombie.speed;
+                }
+                if (zombie.y < character1.y) 
+                {
+                    zombie.y += zombie.speed;
+                } else 
+                { 
+                    zombie.y-= zombie.speed;
+                }  
+            }
+            else 
+            {
+                if (zombie.x < character2.x) 
+                {
+                    zombie.x += zombie.speed;
+                } 
+                else
+                {
+                    zombie.x-= zombie.speed;
+                }
+                if (zombie.y < character2.y) 
+                {
+                    zombie.y += zombie.speed;
+                } 
+                else 
+                {
+                    zombie.y-= zombie.speed;
+                }
+            }
+
+            
+
+            
+            
+            for (let i = 0; i < characters.length; i++) 
+             
+            {
+                picture(characters[i].x, characters[i].y, "image/character" + (i + 1) + ".png");
+
+                if (distance(zombie, characters[i]) < 10)
+                 {
+                  characters[i].health -= 0.2;
+                 }
+                if (characters[i].health < 0)
+                {
+                      characters[i].x -= 50000;
+                      characters[i].y -= 50000;
+
+                      
+                      
+                     if (character1.health < 0 && character2.health < 0)
+                     {
+                       alert("Game over!\nRestart and replay?");
+                       window.location.href="game.html";
+                     }
+                }
+            }
+                
+                
+                
+        }
+            
+            
+            if (keyboard.space)
+            {
+                projectile()
+            }
+            if (keyboard.enter)
+            {
+                projectile()
+            }
+            //Karaktär rörelse
+            if (keyboard.a){
+            character1.x -= character1.speed;
+            leftdirection1 ="true";
+            }
+            if (keyboard.d){
+            character1.x += character1.speed;
+            rightdirection1 = "true"; 
+            }
+            if (keyboard.s){
+            character1.y += character1.speed;
+            downdirection1 ="true";
+            }
+            if (keyboard.w){
+            character1.y -= character1.speed;
+            updirection1 ="true";
+            }
+
+
+            //bara en riktning ska kolla om man klickar på a så ska alla andra sidor bli false och han skjuter endast mot en sida
+            if (leftdirection1 == true)
+            {
+               var rightdirection1 ="false";
+               var updirection1 ="false";
+               var downdirection1 ="false";
+            }
+            if (rightdirection1 == true)
+            {
+               var leftdirection1 ="false";
+               var updirection1 ="false";
+               var downdirection1 ="false";
+            }
+            if (updirection1 == true)
+            {
+               var rightdirection1 ="false";
+               var leftdirection1 ="false";
+               var downdirection1 ="false";
+            }
+            if (downdirection1 == true)
+            {
+               var rightdirection1 ="false";
+               var updirection1 ="false";
+               var leftdirection1 ="false";
+            }
+            
+            
+            //karaktär2 rörelse
+            if (keyboard.left){
+            character2.x -= character1.speed;
+            leftdirection2 ="true";
+            }
+            if (keyboard.right){
+            character2.x += character1.speed;
+            rightdirection2 = "true"; 
+            }
+            if (keyboard.down){
+            character2.y += character1.speed;
+            downdirection2 ="true";
+            }
+            if (keyboard.up){
+            character2.y -= character1.speed;
+            updirection2 ="true";
+            }
+
+        }
+
+        function spawnZombie()
+        {
+            var zombie = {x: random(totalWidth),
+                      y: random(totalHeight),
+                      speed: 0.3,
+                      health: 100};
+        zombies.push(zombie)
+
+        }
+        </script>
+</body>
+</html>
